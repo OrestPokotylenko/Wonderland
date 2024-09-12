@@ -1,25 +1,25 @@
 using UnityEngine;
 
-public class IdleBehaviour : MonoBehaviour
+public class PlayerBehaviour : MonoBehaviour
 {
     [SerializeField] private float movementSpeed;
-    private Rigidbody2D _idle;
+    private Rigidbody2D player;
 
     private void Start()
     {
-        _idle = GetComponent<Rigidbody2D>();
+        player = GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
     {
-        _idle.velocity = Move();
+        player.velocity = Move();
     }
 
     private Vector2 Move()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
-        Vector2 movement = new Vector2(moveHorizontal, moveVertical);
+        Vector2 movement = new(moveHorizontal, moveVertical);
 
         if (movement.magnitude > 1)
         {
