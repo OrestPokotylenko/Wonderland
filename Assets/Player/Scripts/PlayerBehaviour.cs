@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerBehaviour : MonoBehaviour
 {
     [SerializeField] private float movementSpeed;
+    [SerializeField] private float pushBackForce;
     private Rigidbody2D player;
 
     private void Start()
@@ -27,5 +28,14 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         return movement * movementSpeed;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("NotStepableObject"))
+        {
+            Vector2 pushDirection = (player.position - (Vector2)collision.transform.position).normalized;
+            player.AddForce(pushDirection * pushBackForce, ForceMode2D.Impulse);
+        }
     }
 }
