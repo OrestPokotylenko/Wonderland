@@ -1,19 +1,13 @@
 using UnityEngine;
 
-public class PlayerBehaviour : MonoBehaviour
+public class PlayerBehaviour : Player
 {
     [SerializeField] private float movementSpeed;
     [SerializeField] private float pushBackForce;
-    private Rigidbody2D player;
-
-    private void Start()
-    {
-        player = GetComponent<Rigidbody2D>();
-    }
 
     void FixedUpdate()
     {
-        player.velocity = Move();
+        creature.velocity = Move();
     }
 
     private Vector2 Move()
@@ -34,8 +28,8 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("NotStepableObject"))
         {
-            Vector2 pushDirection = (player.position - (Vector2)collision.transform.position).normalized;
-            player.AddForce(pushDirection * pushBackForce, ForceMode2D.Impulse);
+            Vector2 pushDirection = (creature.position - (Vector2)collision.transform.position).normalized;
+            creature.AddForce(pushDirection * pushBackForce, ForceMode2D.Impulse);
         }
     }
 }
